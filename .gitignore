@@ -1,0 +1,5 @@
+*.egg-info/
+*.pyc
+*.ropeproject/
+
+/settings_local.py
