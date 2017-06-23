@@ -9,7 +9,7 @@ from flask_adminlte import AdminLTE
 from flask_login import LoginManager
 from  sample_application.controllers import authorization, main
 import sample_application.model as Model
-def create_flask_odj(configfile):
+def create_flask_odj():
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object('settings')
     app.config.from_pyfile('log_settings.py')
@@ -27,8 +27,8 @@ def create_flask_odj(configfile):
             return None
     return app
     
-def create_app(configfile):
-    app = create_flask_odj(configfile)
+def create_app():
+    app = create_flask_odj()
     app.register_blueprint(authorization.Auth)
     app.register_blueprint(main.main)
     return app

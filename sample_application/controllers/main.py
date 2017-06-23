@@ -19,7 +19,7 @@ main = Blueprint('main', __name__)
 @main.route('/home')
 @login_required
 def home():
-    return render_template('home.html', product_header=Model.UPC_Wolmart.get_header_UPC())
+    return render_template('home.html', product_header=Model.UpcWolmart.get_header_UPC())
 
 @main.route('/Data_array', methods=['POST'])
 @login_required
