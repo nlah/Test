@@ -7,7 +7,7 @@ What it doesn't do is insist that you follow it against your will. That's Python
 import io
 import pandas as pd
 from werkzeug.security import generate_password_hash, check_password_hash
-from sample_application.upc import UPC_Wolmart
+from sample_application.upc import UpcWolmart
 from sample_application.model import user_model, wolmart_model
 
 class User():
@@ -26,32 +26,32 @@ class User():
     def __init__(self, user: user_model):
         self.user = user
         try:
-            self.User_UPC = UPC_Wolmart(self.user.key)
+            self.User_UPC = UpcWolmart(self.user.key)
         except Exception as err:
             self.User_UPC = err.args
 
 
     def set_key(self, key):
-        if  UPC_Wolmart.check_key(key):
+        if  UpcWolmart.check_key(key):
             self.user.key = key
             user_model.objects(email=self.user.email, pw_hash=self.user.pw_hash).\
              update_one(set__key=key, upsert=True)
-            self.User_UPC = UPC_Wolmart(self.user.key)
+            self.User_UPC = UpcWolmart(self.user.key)
     def  key_wolmart(self):
-        if isinstance(self.User_UPC, UPC_Wolmart):
+        if isinstance(self.User_UPC, UpcWolmart):
             return self.User_UPC.key
         else:
             return "key Error"
     def set_upc(self, upc):
-        if isinstance(self.User_UPC, UPC_Wolmart):
+        if isinstance(self.User_UPC, UpcWolmart):
             try:
                 wolmart_model.objects.get(upc=upc)
-                return 1
+                return -1
             except wolmart_model.DoesNotExist:
                 data = self.User_UPC.get(upc)
-                if data != 1:
+                try:
                     wolmart_model(**data).save()
-                else:
+                except TypeError:
                     return -1
             return 1
         else:
@@ -84,10 +84,10 @@ class User():
             df = pd.read_csv(io.StringIO(file_data.decode('utf-8')), dtype={'upc':str})['upc']
         except KeyError:
             return -1
-        out = {}
+        out = []
         for i in df:
             if self.set_upc(i) == -1:
-                out[i] = -1
+                out.append(i)
         return out
 
     def del_upc(self, upc: str):

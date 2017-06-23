@@ -10,9 +10,9 @@ from flask_login import LoginManager
 from  sample_application.controllers import authorization, main
 import sample_application.model as Model
 def create_flask_odj(configfile):
-    app = Flask(__name__)
-    app.config.from_object(configfile)
-    print(app.config['PROJECT_FILE_NAME_SETTING'])
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_object('settings')
+    app.config.from_pyfile('log_settings.py')
     lm = LoginManager()
     lm.init_app(app)
     lm.session_protection = 'strong'
@@ -21,8 +21,12 @@ def create_flask_odj(configfile):
     AdminLTE(app)
     @lm.user_loader
     def load_user(email):
-        return Model.user_model.objects.get(email=email)
+        try:
+            return Model.user_model.objects.get(email=email)
+        except:
+            return None
     return app
+    
 def create_app(configfile):
     app = create_flask_odj(configfile)
     app.register_blueprint(authorization.Auth)

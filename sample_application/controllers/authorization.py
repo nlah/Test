@@ -24,7 +24,7 @@ def login_post():
         login_user(user)
         flash("Logged in successfully!", category='success')
         return redirect("/home")
-    except AttributeError:
+    except (AttributeError, Model.user_model.DoesNotExist):
         flash("Wrong username or password!", category='error')
         return render_template('login.html')
 

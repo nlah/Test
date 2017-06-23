@@ -7,22 +7,21 @@ What it doesn't do is insist that you follow it against your will. That's Python
 import json
 import datetime
 import requests
-class UPC_Wolmart:
+class UpcWolmart(object):
     """
     Wolmart API for upc
     """
     url = 'http://api.walmartlabs.com/v1/items'
     def __init__(self, key):
-        if UPC_Wolmart.check_key(key):
+        if UpcWolmart.check_key(key):
             self.key = key
         else:
-            raise Exception('UPC_Wolmart key')
+            raise Exception('UpcWolmart key')
     def elem(self, JSON_W, name):
         try:
             if name == 'date_modified':
                 return  datetime.datetime.now()
-            else:
-                return  JSON_W[name]
+            return  JSON_W[name]    
         except:
             return -1
 
@@ -37,16 +36,18 @@ class UPC_Wolmart:
         data = requests.get(self.url, params=payload, allow_redirects=False)
         data = json.loads(data.text)
         try:
-            return self.dict_data(data['items'][0])
+            data = self.dict_data(data['items'][0])
+            data['modelNumber'] = str(data['modelNumber'])
+            return data
         except KeyError:
             return -1
 
     def update(self, mongo):
-        for i in mongo.UPC.find():
+        for i in mongo.wolmart_model.find():
             data = self.get(i['upc'])
             if data != -1:
-                data['Update_time'] = datetime.datetime.now()
-                mongo.UPC.update({'_id':i['_id']}, data, True)
+                data['date_modified'] = datetime.datetime.now()
+                mongo.wolmart_model.update({'_id':i['_id']}, data, True)
     @staticmethod
     def check_key(key):
         payload = {'apiKey': key, 'upc': '035000521019'}

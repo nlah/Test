@@ -52,7 +52,7 @@ def Add_upc():
     user = Model.User(current_user)
     user.set_upc(request.form['upc'])
     if user.set_upc(request.form['upc']) != 1:
-        flash("Wrong upc!", category='error')
+        flash("Wrong upc or key!", category='error')
     return redirect("/home")
 
 @main.route('/Del_upc', methods=['POST'])
@@ -66,7 +66,9 @@ def Del_upc():
 @login_required
 def Add_file_csv():
     user = Model.User(current_user)
-    user.set_csv(request.files['fileToUpload'].read())
+    err_key = user.set_csv(request.files['fileToUpload'].read())
+    if len(err_key)>0:
+        flash("Wrong upc "+str(len(err_key)), category='error')
     return redirect("/home")
 
 @main.route('/Add_key', methods=['POST'])
