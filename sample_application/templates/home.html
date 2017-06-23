@@ -1,0 +1,193 @@
+{% extends "adminlte/base.html" %}
+{% import "adminlte/layout.html" as layout with context %}
+{% import "adminlte/widgets.html" as widgets with context %}
+
+{% block navbar %}
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <!-- Messages: style can be found in dropdown.less-->
+   
+            <!-- Notifications: style can be found in dropdown.less -->
+
+            <!-- Tasks: style can be found in dropdown.less -->
+        
+            <!-- User Account: style can be found in dropdown.less -->
+            <li class="dropdown user user-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-user"></i>
+                <span><i class="caret"></i></span>
+              </a>
+              <ul class="dropdown-menu">
+                <!-- User image -->
+                <li class="user-header bg-light-blue">
+                  <p>
+                  
+                    <small>Member since </small>
+                  </p>
+                </li>
+                <!-- Menu Body -->
+                <li class="user-body">
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Followers</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Sales</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Friends</a>
+                  </div>
+                </li>
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="pull-right">
+                    <a href="{{ url_for('Auth.out') }}" class="btn btn-default btn-flat">Sign out</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+{%- endblock navbar %}
+{% block sidebar -%}
+        <!-- sidebar: style can be found in sidebar.less -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+          <div class="user-panel">
+            <div class="pull-left image">
+            </div>
+            <div class="pull-left info">
+              <a href="#">
+                <i class="fa fa-circle text-success"></i>
+                Online
+              </a>
+            </div>
+          </div>
+          <ul class="sidebar-menu">
+          <li class="header">HEADER</li>
+            <li class="active">
+              <a href="{{ url_for('main.home') }}">
+                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+              </a>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-folder"></i>
+                <span>Options</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li>
+                  <a href="{{ url_for('main.Settings') }}">
+                    <i class="fa fa-circle-o"></i>
+                      Settings
+                  </a>
+
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+        <!-- /.sidebar -->
+{%- endblock sidebar %}
+{% block content_header -%}
+          <h1>
+            Dashboard
+            <small>Preview page</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+          </ol>
+{%- endblock content_header %}
+{% block content -%}
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                  Create
+              </button>
+              <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#Delete">
+                  Delete
+              </button>
+              <a href="{{ url_for('main.download') }}" >Download csv</a>
+              <!-- Modal -->
+              <div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                          </div>
+                          <div class="modal-body">
+
+                              <form action="{{ url_for('main.Del_upc') }}" method="post">
+                                  <div class="form-group has-feedback">
+                                      <input name="upc_del" placeholder="upc" required="true" class="form-control">
+                                      <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                  </div>
+                                  <div class="col-xs-4 col-xs-offset-8">
+                                      <button type="submit" class="btn btn-primary btn-block btn-flat">Delete</button>
+                                  </div>
+                              </form>
+
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- Modal -->
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelleFdby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                          </div>
+                          <div class="modal-body">
+                              
+
+                              <form action="{{ url_for('main.Add_upc') }}" method="post">
+                                  <div class="form-group has-feedback">
+                                      <input name="upc" placeholder="upc" required="true" class="form-control">
+                                      <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                  </div>
+                                      <div class="col-xs-4 col-xs-offset-8">
+                                          <button type="submit" class="btn btn-primary btn-block btn-flat">ADD</button>
+                                      </div>
+                              </form>
+                              <form action="{{ url_for('main.Add_file_csv') }}" method="post" enctype="multipart/form-data">
+                                  Select image to upload:
+                                  <div class="form-group has-feedback">
+                                      <input type="file" name="fileToUpload" id="fileToUpload">
+                                  </div>
+                                  <div class="col-xs-4 col-xs-offset-8">
+                                      <button type="submit" class="btn btn-primary btn-block btn-flat">ADD</button>
+                                  </div>
+                            </form>
+                        
+                          </div>
+
+                          <h3><a href="{{ url_for('main.download_example') }}">download example csv</a></h3>
+
+                      </div>
+                  </div>
+              </div>
+          <!-- Small boxes (Stat box) -->
+              <table id="example" class="display">
+                  <thead>
+                      <tr>
+                          {% for key in product_header %}
+                          <th>{{key }}</th>
+                          {% endfor %}
+
+                      </tr>
+                  </thead>
+         
+              </table>
+{%- endblock content %}
