@@ -47,7 +47,7 @@
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-right">
-                    <a href="{{ url_for('out') }}" class="btn btn-default btn-flat">Sign out</a>
+                    <a href="{{ url_for('Auth.out') }}" class="btn btn-default btn-flat">Sign out</a>
                   </div>
                 </li>
               </ul>
@@ -71,7 +71,7 @@
           <ul class="sidebar-menu">
           <li class="header">HEADER</li>
             <li class="active">
-              <a href="{{ url_for('home') }}">
+              <a href="{{ url_for('main.home') }}">
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
               </a>
             </li>
@@ -84,7 +84,7 @@
               </a>
               <ul class="treeview-menu">
                 <li>
-                  <a href="{{ url_for('Settings') }}">
+                  <a href="{{ url_for('main.Settings') }}">
                     <i class="fa fa-circle-o"></i>
                       Settings
                   </a>
@@ -116,7 +116,7 @@
               <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#Delete">
                   Delete
               </button>
-              <a href="{{ url_for('download') }}" >Download csv</a>
+              <a href="{{ url_for('main.download') }}" >Download csv</a>
               <!-- Modal -->
               <div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
@@ -127,7 +127,7 @@
                           </div>
                           <div class="modal-body">
 
-                              <form action="{{ url_for('Del_upc') }}" method="post">
+                              <form action="{{ url_for('main.Del_upc') }}" method="post">
                                   <div class="form-group has-feedback">
                                       <input name="upc_del" placeholder="upc" required="true" class="form-control">
                                       <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -152,7 +152,7 @@
                           <div class="modal-body">
                               
 
-                              <form action="{{ url_for('Add_upc') }}" method="post">
+                              <form action="{{ url_for('main.Add_upc') }}" method="post">
                                   <div class="form-group has-feedback">
                                       <input name="upc" placeholder="upc" required="true" class="form-control">
                                       <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -161,7 +161,7 @@
                                           <button type="submit" class="btn btn-primary btn-block btn-flat">ADD</button>
                                       </div>
                               </form>
-                              <form action="{{ url_for('Add_file_csv') }}" method="post" enctype="multipart/form-data">
+                              <form action="{{ url_for('main.Add_file_csv') }}" method="post" enctype="multipart/form-data">
                                   Select image to upload:
                                   <div class="form-group has-feedback">
                                       <input type="file" name="fileToUpload" id="fileToUpload">
@@ -173,7 +173,7 @@
                         
                           </div>
 
-                          <h3><a href="{{ url_for('download_example') }}">download example csv</a></h3>
+                          <h3><a href="{{ url_for('main.download_example') }}">download example csv</a></h3>
 
                       </div>
                   </div>

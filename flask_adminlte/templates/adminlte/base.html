@@ -148,10 +148,9 @@
                 processing: true,
                 serverSide: true,
                 ajax:{
-                    url: "{{ url_for('Data_array') }}",
+                    url: "{{ url_for('main.Data_array') }}",
                     "type": "POST"
                 } ,
-
                 columns: [
                       {data: 'upc'},
                       {data: 'salePrice'},
@@ -159,11 +158,9 @@
                       {data: 'brandName'},
                       {data: 'modelNumber'},
                       {data: 'largeImage'},
-                      {data: 'quantity'},
+                      {data: 'stock'},
                       {data: 'freeShippingOver50Dollars'},
-                      {data: 'IN_stock'},
-                      {data: 'Update_time'},
-
+                      {data: 'date_modified'}
                 ],
             });
             })

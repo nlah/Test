@@ -23,7 +23,7 @@
         {% endif %}
       {% endwith %}
       {# Render the login form. #}
-        <form action="{{ url_for('login') }}" method="post">
+        <form action="{{ url_for('Auth.login') }}" method="post">
             <div class="form-group has-feedback">
                 <input name="yourname" placeholder="Username or Email" required="true" class="form-control">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -39,7 +39,7 @@
             </div>
         </form>
 
-        <form action="{{ url_for('registration') }}" method="get">
+        <form action="{{ url_for('Auth.registration') }}" method="get">
             <div class="row">
                 <div class="col-xs-4 col-xs-offset-8">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">regisration</button>

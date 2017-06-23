@@ -15,7 +15,7 @@
     <!-- /.lockscreen-image -->
 
     <!-- lockscreen credentials (contains the form) -->
-    <form class="lockscreen-credentials" action="{{ url_for('Add_key') }}" method="post">
+    <form class="lockscreen-credentials" action="{{ url_for('main.Add_key') }}" method="post">
       <div class="input-group">
         <input name="key"  class="form-control" placeholder="{{key}}">
 
@@ -32,7 +32,7 @@
     Enter your password to retrieve your session
   </div>
   <div class="text-center">
-    <a href="{{ url_for('login') }}">Or sign in as a different user</a>
+    <a href="{{ url_for('Auth.login') }}">Or sign in as a different user</a>
   </div>
   <div class="lockscreen-footer text-center">
     Copyright &copy; 2014-2015 <b><a href="http://almsaeedstudio.com" class="text-black">Almsaeed Studio</a></b><br>

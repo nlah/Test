@@ -8,24 +8,29 @@ PERMANENT_SESSION_LIFETIME = 60 * 60 * 24 * 30
 
 # flask wtf settings
 
+
+
 # flask mongoengine settings
 
-
-# flask mail settings
-
-
+MONGODB_DB='sample_applications'
+MONGODB_HOST='127.0.0.1'
+MONGODB_PORT=27017
 
 # project settings
 PROJECT_FILE_NAME_SETTING=__name__
 
 PROJECT_PASSWORD_HASH_METHOD = 'pbkdf2:sha1'
 PROJECT_SITE_NAME = u'Flask Example'
-PROJECT_SITE_URL = u'http://127.0.0.1:5000'
+PROJECT_SITE_URL = u'http://127.0.0.1:5002'
 PROJECT_SIGNUP_TOKEN_MAX_AGE = 60 * 60 * 24 * 7  # in seconds
 PROJECT_RECOVER_PASSWORD_TOKEN_MAX_AGE = 60 * 60 * 24 * 7  # in seconds
 
 MONGO_URI = 'mongodb://localhost:27017'
 SESSION_TYPE = 'filesystem'
+
+
+
+# celery settings
 
 CELERY_BROKER_URL = 'mongodb://localhost:27017/jobs'
 

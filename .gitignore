@@ -2,4 +2,4 @@
 *.pyc
 *.ropeproject/
 
-/settings_local.py
+mongo/
