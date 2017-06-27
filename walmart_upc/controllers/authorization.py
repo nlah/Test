@@ -7,35 +7,48 @@ What it doesn't do is insist that you follow it against your will. That's Python
 from flask import render_template, request, \
  redirect, Blueprint, flash
 from flask_login import login_user, logout_user
-import sample_application.objects_behevior as Model
-Auth = Blueprint('Auth', __name__)
-@Auth.route('/login')
+import walmart_upc.objects_behevior as model
+
+auth = Blueprint('auth', __name__)
+
+@auth.route('/login')
 def login():
+    """ Return login.html """
+
     return render_template('login.html')
 
-@Auth.route('/out')
+@auth.route('/out')
 def out():
+    """ Logouting user and go to login.html """
+
     logout_user()
     return render_template('login.html')
-@Auth.route('/login', methods=['POST'])
+
+@auth.route('/login', methods=['POST'])
 def login_post():
+    """ User verification """
+
     try:
-        user = Model.User.get_user(request.form['yourname'], request.form['password'])
+        user = model.User.get_user(request.form['yourname'], request.form['password'])
         login_user(user)
         flash("Logged in successfully!", category='success')
         return redirect("/home")
-    except (AttributeError, Model.user_model.DoesNotExist):
+    except (AttributeError, model.UserModel.DoesNotExist):
         flash("Wrong username or password!", category='error')
         return render_template('login.html')
 
-@Auth.route('/registration', methods=['GET'])
+@auth.route('/registration', methods=['GET'])
 def registration():
+    """ Return registration.html """
+
     return render_template('registration.html')
 
-@Auth.route('/registration', methods=['POST'])
+@auth.route('/registration', methods=['POST'])
 def registration_post():
+    """ Registration new user """
+    
     try:
-        Model.User_generate(request.form['yourname'], request.form['password'],\
+        model.UserGenerate(request.form['yourname'], request.form['password'],\
          request.form['password_test'])
     except Exception as err:
         flash(err.args, category='error')

@@ -11,25 +11,20 @@ PERMANENT_SESSION_LIFETIME = 60 * 60 * 24 * 30
 
 
 # flask mongoengine settings
-
-MONGODB_DB='sample_applications'
+MONGODB_DB = 'WolmartDB'
 MONGODB_HOST='127.0.0.1'
 MONGODB_PORT=27017
-
+MONGO_URI = 'mongodb://localhost:27017'
 # project settings
 PROJECT_FILE_NAME_SETTING=__name__
 PROJECT_PASSWORD_HASH_METHOD = 'pbkdf2:sha1'
 PROJECT_SIGNUP_TOKEN_MAX_AGE = 60 * 60 * 24 * 7  # in seconds
 PROJECT_RECOVER_PASSWORD_TOKEN_MAX_AGE = 60 * 60 * 24 * 7  # in seconds
 
-MONGO_URI = 'mongodb://localhost:27017'
 SESSION_TYPE = 'filesystem'
-
-
-
 # celery settings
-
-CELERY_BROKER_URL = 'mongodb://localhost:27017/jobs'
+CELERY_WALMART_KEY = '3ayec4g84mbybsmhr3des5t6' 
+BROKER_URL = 'mongodb://localhost:27017/jobs'
 
 CELERY_RESULT_BACKEND = "mongodb"
 CELERY_MONGODB_BACKEND_SETTINGS = {
@@ -42,8 +37,8 @@ CELERY_MONGODB_BACKEND_SETTINGS = {
 
 CELERYBEAT_SCHEDULE = {
     "runs-every-60-minute": {
-        "task": "task_celery.add",
-        "schedule": crontab(minute='*/60'),
+        "task": "celery_my.tasks.add",
+        "schedule": crontab(minute='*/2'),
         "args": ()
     },
 }

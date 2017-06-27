@@ -47,7 +47,7 @@
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-right">
-                    <a href="{{ url_for('Auth.out') }}" class="btn btn-default btn-flat">Sign out</a>
+                    <a href="{{ url_for('auth.out') }}" class="btn btn-default btn-flat">Sign out</a>
                   </div>
                 </li>
               </ul>
@@ -127,7 +127,7 @@
                           </div>
                           <div class="modal-body">
 
-                              <form action="{{ url_for('main.Del_upc') }}" method="post">
+                              <form action="{{ url_for('main.del_upc') }}" method="post">
                                   <div class="form-group has-feedback">
                                       <input name="upc_del" placeholder="upc" required="true" class="form-control">
                                       <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -152,7 +152,7 @@
                           <div class="modal-body">
                               
 
-                              <form action="{{ url_for('main.Add_upc') }}" method="post">
+                              <form action="{{ url_for('main.add_upc') }}" method="post">
                                   <div class="form-group has-feedback">
                                       <input name="upc" placeholder="upc" required="true" class="form-control">
                                       <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -161,7 +161,7 @@
                                           <button type="submit" class="btn btn-primary btn-block btn-flat">ADD</button>
                                       </div>
                               </form>
-                              <form action="{{ url_for('main.Add_file_csv') }}" method="post" enctype="multipart/form-data">
+                              <form action="{{ url_for('main.add_file_csv') }}" method="post" enctype="multipart/form-data">
                                   Select image to upload:
                                   <div class="form-group has-feedback">
                                       <input type="file" name="fileToUpload" id="fileToUpload">
@@ -191,3 +191,4 @@
          
               </table>
 {%- endblock content %}
+

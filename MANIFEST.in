@@ -1,3 +1,0 @@
-recursive-include flask_adminlte/static *
-recursive-include flask_adminlte/templates *.html
-include README.rst
