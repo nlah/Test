@@ -13,6 +13,6 @@ def add():
     """
     Update the database on upc
     """
-    wolmart = UpcWalmart(app.conf['CELERY_WALMART_KEY'])
+    walmart = UpcWalmart(app.conf['CELERY_WALMART_KEY'])
     client = MongoClient(app.conf['MONGO_URI'])
-    wolmart.update(client[app.conf['MONGODB_DB']])
+    walmart.update(client[app.conf['MONGODB_DB']])
