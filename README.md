@@ -1,17 +1,18 @@
-Python version 3.6
+# Python
+version 3.6
 
-Installing Libraries
+## Installing Libraries
 
 pip3 install -r requirements.txt
 
-Run server
+## Run server
 
 python3 manage.py runserver
 
-Run celery bear
+## Run celery bear
 
 python3 manage.py run_beat
 
-Run celery worker
+## Run celery worker
 
 python3 manage.py run_worker
