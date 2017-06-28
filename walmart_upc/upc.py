@@ -12,10 +12,10 @@ class UpcWalmart(object):
 
     url = 'http://api.walmartlabs.com/v1/items'
     def __init__(self, key):
-        if UpcWolmart.check_key(key):
+        if UpcWalmart.check_key(key):
             self.key = key
         else:
-            raise Exception('UpcWolmart key')
+            raise Exception('UpcWalmart key')
 
     def elem(self, json_w, name):
         """
@@ -31,7 +31,7 @@ class UpcWalmart(object):
 
 
         Returns:
-
+            
 
 
         """
@@ -61,7 +61,7 @@ class UpcWalmart(object):
         """
 
         out = {}
-        for i in self.get_header_UPC():
+        for i in self.get_header_upc():
             out[i] = self.elem(json_w, i)
         return out
 
@@ -109,11 +109,11 @@ class UpcWalmart(object):
 
         """
 
-        for i in mongo.wolmart_model.find():
+        for i in mongo.walmart_model.find():
             data = self.get(i['upc'])
             if data != -1:
                 data['date_modified'] = datetime.datetime.now()
-                mongo.wolmart_model.update({'_id':i['_id']}, data, True)
+                mongo.walmart_model.update({'_id':i['_id']}, data, True)
 
     @staticmethod
     def check_key(key):
@@ -143,8 +143,8 @@ class UpcWalmart(object):
             return False
 
     @staticmethod
-    def get_header_UPC():
-        """ """
+    def get_header_upc():
+        """ Returnning list of walmart keys name """
 
         return ['upc', 'salePrice', 'name', 'brandName', 'modelNumber',\
          'largeImage', 'stock', 'freeShippingOver50Dollars', 'date_modified']

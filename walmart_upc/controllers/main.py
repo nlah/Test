@@ -20,7 +20,7 @@ main = Blueprint('main', __name__)
 def home():
     """ Start page for login user """
 
-    return render_template('home.html', product_header=model.UpcWolmart.get_header_UPC())
+    return render_template('home.html', product_header=model.UpcWalmart.get_header_upc())
 
 @main.route('/data-array', methods=['POST'])
 @login_required
@@ -37,7 +37,7 @@ def data_array():
 
             Args:
 
-              o: 
+              o:
 
 
 
@@ -133,6 +133,6 @@ def Settings():
     """ Return Settings.html and key user"""
 
     user = model.User(current_user)
-    key = user.key_wolmart()
+    key = user.key_walmart()
     return render_template('Settings.html', key=key)
 

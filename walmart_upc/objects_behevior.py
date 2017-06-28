@@ -6,6 +6,7 @@ What it doesn't do is insist that you follow it against your will. That's Python
 """
 import io
 import pandas as pd
+from mongoengine.errors import NotUniqueError
 from werkzeug.security import generate_password_hash, check_password_hash
 from walmart_upc.upc import UpcWalmart
 from walmart_upc.model import UserModel, WalmartModel
@@ -16,7 +17,15 @@ class User():
     """
 
     url = 'http://api.walmartlabs.com/v1/items'
-
+    
+    @staticmethod
+    def generate(username, password):
+        try:
+            pw_hash = generate_password_hash(password)
+            UserModel(email=username, pw_hash=pw_hash).save()
+            return True
+        except NotUniqueError:
+            return False
     @staticmethod
     def get_user(username=None, password=None):
         """
@@ -36,12 +45,14 @@ class User():
             User if exist
 
         """
-
-        user = UserModel.objects.get(email=username)
-        if check_password_hash(user.pw_hash, password) != True:
-            raise Exception('password')
-        else:
-            return   user
+        try:
+            user = UserModel.objects.get(email=username)
+            if check_password_hash(user.pw_hash, password) != True:
+                return None
+            else:
+                return user
+        except UserModel.DoesNotExist:
+            return None
 
     def __init__(self, user: UserModel):
         self.user = user
@@ -148,7 +159,7 @@ class User():
         """ Return csv file """
 
         csv_data = []
-        column_name = self.user_upc.get_header_UPC()
+        column_name = self.user_upc.get_header_upc()
         for i in column_name:
             csv_data.append([])
         for i in self.get_upc():
@@ -211,38 +222,3 @@ class User():
         """ Coutn upc in db """
 
         return WalmartModel.objects.count()
-
-class UserGenerate(object):
-    """ Object for generete user """
-
-    def __init__(self, username, password, password_test):
-        if password != password_test:
-            raise Exception('passwords not equal')
-        self.username = username
-        self.set_password(password)
-        UserModel(email=self.username, pw_hash=self.pw_hash).save()
-
-    def set_password(self, password):
-        """
-
-
-
-        Args:
-
-          password: 
-
-
-
-        Returns:
-
-
-
-        """
-
-        self.pw_hash = generate_password_hash(password)
-        
-    def to_dict(self):
-        """  """
-
-        return {'email':self.username, 'pw_hash':self.pw_hash}
-

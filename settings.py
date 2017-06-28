@@ -38,7 +38,7 @@ CELERY_MONGODB_BACKEND_SETTINGS = {
 CELERYBEAT_SCHEDULE = {
     "runs-every-60-minute": {
         "task": "celery_my.tasks.add",
-        "schedule": crontab(minute='*/2'),
+        "schedule": crontab(minute='*/3'),
         "args": ()
     },
 }

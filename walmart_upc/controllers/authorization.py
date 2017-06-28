@@ -8,48 +8,34 @@ from flask import render_template, request, \
  redirect, Blueprint, flash
 from flask_login import login_user, logout_user
 import walmart_upc.objects_behevior as model
+from walmart_upc.form import LoginForm, RegistrationForm
 
 auth = Blueprint('auth', __name__)
 
-@auth.route('/login')
+@auth.route('/login', methods=['POST', 'GET'])
 def login():
-    """ Return login.html """
+    """ Return login.html if you don't authorized """
 
-    return render_template('login.html')
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = model.User.get_user(form.username.data, form.password.data)
+        login_user(user)
+        flash("Logged in successfully.", "success")
+        return redirect("/home")
+    return render_template("login.html", form=form)
+
 
 @auth.route('/out')
 def out():
     """ Logouting user and go to login.html """
 
     logout_user()
-    return render_template('login.html')
+    return redirect("/login")
 
-@auth.route('/login', methods=['POST'])
-def login_post():
-    """ User verification """
-
-    try:
-        user = model.User.get_user(request.form['yourname'], request.form['password'])
-        login_user(user)
-        flash("Logged in successfully!", category='success')
-        return redirect("/home")
-    except (AttributeError, model.UserModel.DoesNotExist):
-        flash("Wrong username or password!", category='error')
-        return render_template('login.html')
-
-@auth.route('/registration', methods=['GET'])
+@auth.route('/registration', methods=['POST', 'GET'])
 def registration():
-    """ Return registration.html """
-
-    return render_template('registration.html')
-
-@auth.route('/registration', methods=['POST'])
-def registration_post():
-    """ Registration new user """
-    
-    try:
-        model.UserGenerate(request.form['yourname'], request.form['password'],\
-         request.form['password_test'])
-    except Exception as err:
-        flash(err.args, category='error')
-    return render_template('login.html')
+    """ Return registration.html if you don't authorized """
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        return redirect("/login")
+    return render_template("registration.html", form=form)
