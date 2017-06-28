@@ -12,6 +12,9 @@ Flask-WTF==0.14.2
 itsdangerous==0.24
 Jinja2==2.9.6
 kombu==3.0.37
+Mako==1.0.6
+manage.py==0.2.10
+Markdown==2.4.1
 MarkupSafe==0.23
 mongoengine==0.13.0
 numpy==1.13.0
