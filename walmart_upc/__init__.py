@@ -7,8 +7,10 @@ What it doesn't do is insist that you follow it against your will. That's Python
 from flask import Flask
 from flask_adminlte import AdminLTE
 from flask_login import LoginManager
-from  walmart_upc.controllers import authorization, main
+from walmart_upc.controllers import authorization, main
 import walmart_upc.model as Model
+
+
 def create_flask_odj():
     """ Configures flask object """
 
@@ -29,6 +31,7 @@ def create_flask_odj():
         except:
             return None
     return app
+
 
 def create_app():
     """ Return flask object """

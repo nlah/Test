@@ -18,7 +18,7 @@ def runserver():
     """ """
 
     app = create_app()
-    app.run(debug=True)
+    app.run(debug=True, port=7000)
 
 @manager.command
 def run_worker():

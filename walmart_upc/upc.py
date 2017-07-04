@@ -7,10 +7,13 @@ What it doesn't do is insist that you follow it against your will. That's Python
 import json
 import datetime
 import requests
+
+
 class UpcWalmart(object):
     """Walmart API for upc"""
 
     url = 'http://api.walmartlabs.com/v1/items'
+
     def __init__(self, key):
         if UpcWalmart.check_key(key):
             self.key = key

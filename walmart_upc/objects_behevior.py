@@ -11,7 +11,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from walmart_upc.upc import UpcWalmart
 from walmart_upc.model import UserModel, WalmartModel
 
-class User():
+
+class User(object):
     """
        Object to interact user and db
     """
@@ -26,6 +27,7 @@ class User():
             return True
         except NotUniqueError:
             return False
+
     @staticmethod
     def get_user(username=None, password=None):
         """
@@ -78,13 +80,14 @@ class User():
 
         """
 
-        if  UpcWalmart.check_key(key):
+        if UpcWalmart.check_key(key):
             self.user.key = key
             UserModel.objects(email=self.user.email, pw_hash=self.user.pw_hash).\
              update_one(set__key=key, upsert=True)
             self.user_upc = UpcWalmart(self.user.key)
 
-    def  key_walmart(self):
+
+    def key_walmart(self):
         """ Return key Walmart if exist """
 
         if isinstance(self.user_upc, UpcWalmart):
@@ -126,7 +129,6 @@ class User():
 
     def get_upc(self):
         """ """
-
         return [i.to_mongo() for i in WalmartModel.objects]
 
     def get_upc_limit_sort(self, start, end, key, sort_type):

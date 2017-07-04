@@ -9,6 +9,7 @@ from flask_mongoengine import MongoEngine
 
 db = MongoEngine()
 
+
 class WalmartModel(db.Document):
     """Collection walmart data"""
 
@@ -21,6 +22,7 @@ class WalmartModel(db.Document):
     stock = db.StringField()
     freeShippingOver50Dollars = db.BooleanField(required=True)
     date_modified = db.DateTimeField(default=datetime.datetime.now)
+
 
 class UserModel(db.Document):
     """Collection Users data"""

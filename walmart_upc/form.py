@@ -10,12 +10,12 @@ from wtforms import TextField, PasswordField
 from wtforms import validators
 from walmart_upc.objects_behevior import User
 
+
 class LoginForm(FlaskForm):
 
     username = TextField(u'Username', validators=[validators.required()])
 
     password = PasswordField(u'Password', validators=[validators.optional()])
-
 
     def validate(self):
         """ Validate user form """
@@ -28,6 +28,7 @@ class LoginForm(FlaskForm):
             self.username.errors.append('Invalid username or password')
             return False
         return True
+
 
 class RegistrationForm(FlaskForm):
     """ Registration user form """
